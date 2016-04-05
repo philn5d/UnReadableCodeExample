@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="a711d4ef-ba07-4a84-a7bb-6ca10d4003bb" ChangeDateTime="04/04/2016 22:55:55">
+    <Property Name="ElementName" Value="[dbo].[Users].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3a287481-e7be-4c39-b689-929f1c191818" ChangeDateTime="04/04/2016 22:56:31">
+    <Property Name="ElementName" Value="[dbo].[Users].[userName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="userNmae" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e32b25fd-15ab-490e-9d4d-95bb6ae65086" ChangeDateTime="04/04/2016 22:57:05">
+    <Property Name="ElementName" Value="[dbo].[Accounts].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Accounts]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="accountId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="065680e7-4410-4719-806f-0866dfa0c098" ChangeDateTime="04/04/2016 22:58:12">
+    <Property Name="ElementName" Value="[dbo].[Quotes].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Quotes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="quote_id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="aa47d797-113e-497d-aa19-c264bdb3efe6" ChangeDateTime="04/04/2016 22:58:51">
+    <Property Name="ElementName" Value="[dbo].[Shipments].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Shipments]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="shipment_id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="37053d12-aa11-49b8-8f70-ce3f891ab99e" ChangeDateTime="04/05/2016 12:48:53">
+    <Property Name="ElementName" Value="[dbo].[FK_Quotes_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Quotes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Quotes_Accounts]" />
+  </Operation>
+</Operations>
