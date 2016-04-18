@@ -111,10 +111,7 @@ namespace ReadableCodeTests
     {
         private IRepository<Item> _itemRepository = new TestItemRepository();
         private IRepository<Account> _accountRepository = new TestAccountRespository();
-
-        Dictionary<Type, object> _dependencies = new Dictionary<Type, object>();
-
-
+        
         internal IQuotingService _quotingService;
 
         internal TestItemRepository ItemRepository { get { return _itemRepository as TestItemRepository; } }
@@ -125,20 +122,6 @@ namespace ReadableCodeTests
         public void Init()
         {
             _quotingService = new QuotingService(_itemRepository, _accountRepository);
-
-            _dependencies.Add(typeof(IRepository<Item>), new TestItemRepository());
-            _dependencies.Add(typeof(IRepository<Account>), new TestAccountRespository());
-
-        }
-
-        T Get<T>() where T : class
-        {
-            return _dependencies.Single(x => x.Key == typeof(T)).Value as T;
-        }
-
-        U GetAs<T, U>() where U : class
-        {
-            return _dependencies.Single(x => x.Key == typeof(T)).Value as U;
         }
     }
 
