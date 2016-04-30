@@ -17,6 +17,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadableCodeRepositoryInter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadableCodeRepository", "ReadableCodeRepository\ReadableCodeRepository.csproj", "{C908BB50-22B6-49FE-8971-982AAB408FA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuotingWindowsApplication", "QuotingWindowsApplication\QuotingWindowsApplication.csproj", "{8210BE48-E7CE-457C-AC23-FDF3547E990E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{0187BCF4-031C-4F0E-8D45-98F7A385CE21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadableCodeSamples", "ReadableCodeSamples\ReadableCodeSamples.csproj", "{D65A15E0-FDC5-42D5-ABC4-5E93532213F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,8 +59,22 @@ Global
 		{C908BB50-22B6-49FE-8971-982AAB408FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C908BB50-22B6-49FE-8971-982AAB408FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C908BB50-22B6-49FE-8971-982AAB408FA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8210BE48-E7CE-457C-AC23-FDF3547E990E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8210BE48-E7CE-457C-AC23-FDF3547E990E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8210BE48-E7CE-457C-AC23-FDF3547E990E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8210BE48-E7CE-457C-AC23-FDF3547E990E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D65A15E0-FDC5-42D5-ABC4-5E93532213F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D65A15E0-FDC5-42D5-ABC4-5E93532213F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D65A15E0-FDC5-42D5-ABC4-5E93532213F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D65A15E0-FDC5-42D5-ABC4-5E93532213F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AFE44D08-B7C7-4E34-8B57-A50BDEB2DB2A} = {0187BCF4-031C-4F0E-8D45-98F7A385CE21}
+		{59CB8F9B-E4DD-4690-B76A-18D03A251797} = {0187BCF4-031C-4F0E-8D45-98F7A385CE21}
+		{7783365C-4E73-4C50-B39C-7C2D1ECDB0DF} = {0187BCF4-031C-4F0E-8D45-98F7A385CE21}
+		{C908BB50-22B6-49FE-8971-982AAB408FA1} = {0187BCF4-031C-4F0E-8D45-98F7A385CE21}
 	EndGlobalSection
 EndGlobal

@@ -5,26 +5,64 @@ using ReadableCodeRepositoryInterfaces;
 using ReadableCodeServices;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Practices.Unity;
 
 namespace ReadableCodeTests
 {
     [TestClass]
     public class QoutingTests
     {
+        class TestRunParams
+        {
+            public Func<decimal> Run;
+            public decimal Expected;
+            public string ScenarioDescription;
+        }
+        
         [TestClass]
         public class GetQuoteWithNoAccount : GetQuoteTestBase
         {
-            
+            IEnumerable<TestRunParams> _testScenarios;
             public GetQuoteWithNoAccount()
             {
-                ItemRepository.SetupItems(new Item(1, 1), new Item(2, 1), new Item(100,100));
+                ItemRepository.SetupItems(new Item(1, 1), new Item(100,100), new Item(3,3), new Item(3,3));
+                _testScenarios = new[] {
+                    new TestRunParams
+                    {
+                        ScenarioDescription = "Given an item with price of 100, when quote is given, then the quoted cost should be 100.",
+                        Run = () => GetQuote(100),
+                        Expected = 100,
+                    },
+                    new TestRunParams
+                    {
+                        ScenarioDescription = "Given an item with prive of 1, when quote is given, then the quoted cost should be 1.",
+                        Run = () => GetQuote(1),
+                        Expected = 1,
+                    },
+                    new TestRunParams
+                    {
+                        ScenarioDescription = "Given an item with price of 1 and another item with a price of 100, when quote is given, then the quoted cost should be 101.",
+                        Run = () => GetQuote(1, 100),
+                        Expected = 101,
+                    },
+                    new TestRunParams
+                    {
+                        ScenarioDescription = "Given two of the same item with cost of 3, when a quote is given, then the quoted cost should be 6.",
+                        Run = () => GetQuote(3),
+                        Expected = 6,
+                    }
+                };
             }
+            
+
 
             [TestMethod]
-            public void GivenItemPrice100_ShouldReturn100()
+            public void RunGetQuoteWithNoAccountTestScenarios()
             {
-                var quote = GetQuote(100);
-                Assert.IsTrue(quote == 100);
+                foreach (var scenario in _testScenarios)
+                {
+                    Assert.AreEqual(scenario.Expected, scenario.Run(), scenario.ScenarioDescription);
+                }
             }
 
 
@@ -32,17 +70,22 @@ namespace ReadableCodeTests
             public void GivenItemPrice1_ShouldReturn1()
             {
                 var quote = GetQuote(1);
-                Assert.IsTrue(quote == 1);
-
+                Assert.AreEqual(1, quote);
             }
                         
             [TestMethod]
             public void Given_multiple_items_gets_total_quote()
             {
-                var actualTotalCost = GetQuote(1, 2);
-                Assert.AreEqual(2.00M, actualTotalCost);
+                var actualTotalCost = GetQuote(1, 100);
+                Assert.AreEqual(101.00M, actualTotalCost);
             }
 
+            [TestMethod]
+            public void Given_two_of_the_same_item_with_cost_3_total_should_be_six()
+            {
+                var actualTotalCost = GetQuote(3);
+                Assert.AreEqual(6M, actualTotalCost);
+            }
 
             private decimal GetQuote(params int[] itemIds)
             {
@@ -66,16 +109,17 @@ namespace ReadableCodeTests
             public void GivenAccountWith10PercentDiscountAndItemCost100_QuoteShouldBe90()
             {
                 AccountRespository.ReturnsAccountWithPercentDiscount(.10M);
-                ValidateQuotedCostAfterDiscountIsEqualToExpectedCost(90);
+                decimal quotedCostAfterDiscount = GetQuote(_itemId);
+                Assert.AreEqual(90, quotedCostAfterDiscount);
             }
-
 
             [TestMethod]
             public void GivenAccountWithFlatDiscountOf10AndItemCost100_QuoteShouldBe90()
             {
-                AccountRespository.ReturnsAccountWithFlatDiscount(10.00M);
+                SetupFlatDiscount(10M);
                 ValidateQuotedCostAfterDiscountIsEqualToExpectedCost(90);
             }
+
 
             [TestMethod]
             public void GivenAccountWithFlatDiscountOf101AndItemCost100_QuoteShouldBe0()
@@ -87,14 +131,38 @@ namespace ReadableCodeTests
             [TestMethod]
             public void GivenAccountWithNoDiscount_AndItemCost100_QuioteShouldBe100()
             {
-                AccountRespository.ReturnsAccountWithNoDiscount();
-                ValidateQuotedCostAfterDiscountIsEqualToExpectedCost(100);
+                SetupNoDiscount();
+
+                var quotedCostAfterDiscount = GetQuote(_itemId);
+
+                ValidateQuotedCost(100, quotedCostAfterDiscount);
             }
-            
+
+
+            private void SetupPercentDiscount(decimal discountPercent)
+            {
+                AccountRespository.ReturnsAccountWithPercentDiscount(discountPercent);
+            }
+
+            private void SetupFlatDiscount(decimal discountAmount)
+            {
+                AccountRespository.ReturnsAccountWithFlatDiscount(discountAmount);
+            }
+
+            private void SetupNoDiscount()
+            {
+                AccountRespository.ReturnsAccountWithNoDiscount();
+            }
+
+
             private void ValidateQuotedCostAfterDiscountIsEqualToExpectedCost(decimal expectedCostAfterDiscount)
             {
                 decimal quotedCostAfterDiscount = GetQuote(_itemId);
                 Assert.AreEqual(expectedCostAfterDiscount, quotedCostAfterDiscount);
+            }
+            private void ValidateQuotedCost(int expectedCost, decimal quotedCostAfterDiscount)
+            {
+                Assert.AreEqual(expectedCost, quotedCostAfterDiscount);
             }
 
             private decimal GetQuote(params int[] itemIds)
@@ -106,26 +174,31 @@ namespace ReadableCodeTests
 
 
 
-
+    
     public abstract class GetQuoteTestBase
     {
+        IUnityContainer _unityContainer = new UnityContainer();
+        public GetQuoteTestBase()
+        {
+            _unityContainer
+                .RegisterInstance(_itemRepository)
+                .RegisterInstance(_accountRepository)
+                .RegisterType<IQuotingService, QuotingService>();
+
+            _quotingService = _unityContainer.Resolve<IQuotingService>();
+        }
         private IRepository<Item> _itemRepository = new TestItemRepository();
-        private IRepository<Account> _accountRepository = new TestAccountRespository();
+        private IRepository<Account> _accountRepository = new TestAccountRepository();
         
         internal IQuotingService _quotingService;
 
         internal TestItemRepository ItemRepository { get { return _itemRepository as TestItemRepository; } }
 
-        internal TestAccountRespository AccountRespository { get { return _accountRepository as TestAccountRespository; } }
-
-        [TestInitialize]
-        public void Init()
-        {
-            _quotingService = new QuotingService(_itemRepository, _accountRepository);
-        }
+        internal TestAccountRepository AccountRespository { get { return _accountRepository as TestAccountRepository; } }
+        
     }
 
-    internal class TestAccountRespository : IRepository<Account>
+    internal class TestAccountRepository : IRepository<Account>
     {
         Account _account;
 

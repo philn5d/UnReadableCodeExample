@@ -13,11 +13,11 @@ namespace UnReadableCodeDataModel
         public int Id { get; set; }
 
         [Column("item_id")]
-        [ForeignKey("QuoteToItem")]
+        //[ForeignKey("QuoteToItem")]
         public int ItemId { get; set; }
 
-        [Association("QuoteToItem", "ItemId", "Id")]
-        public Item Item { get; set; }
+        //[Association("QuoteToItem", "ItemId", "Id")]
+        //public Item Item { get; set; }
 
         [Column("date")]
         public DateTime Date { get; set; }

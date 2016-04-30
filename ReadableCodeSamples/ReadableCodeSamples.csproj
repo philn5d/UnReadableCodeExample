@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F87A2080-4E4C-408D-9773-657D929859A8}</ProjectGuid>
+    <ProjectGuid>{D65A15E0-FDC5-42D5-ABC4-5E93532213F7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReadableCodeTests</RootNamespace>
-    <AssemblyName>ReadableCodeTests</AssemblyName>
+    <RootNamespace>ReadableCodeSamples</RootNamespace>
+    <AssemblyName>ReadableCodeSamples</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -69,27 +69,17 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="QoutingTests.cs" />
+    <Compile Include="InversionOfControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ReadableCodeDomain\ReadableCodeDomain.csproj">
-      <Project>{773b0ac7-3a01-475a-9746-3e3970d70122}</Project>
-      <Name>ReadableCodeDomain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ReadableCodeRepositoryInterfaces\ReadableCodeRepositoryInterfaces.csproj">
-      <Project>{7783365c-4e73-4c50-b39c-7c2d1ecdb0df}</Project>
-      <Name>ReadableCodeRepositoryInterfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ReadableCodeServices\ReadableCodeServices.csproj">
-      <Project>{9d57d448-0ea0-482e-96fb-626cf8280ebf}</Project>
-      <Name>ReadableCodeServices</Name>
-    </ProjectReference>
+    <Compile Include="ExtensionMethod.cs" />
+    <Compile Include="ClassStyle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
